@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hope.tubitak_bitki.presentation.camera.CameraScreen
+import com.hope.tubitak_bitki.presentation.history.HistoryScreen
 import com.hope.tubitak_bitki.presentation.home.HomeScreen
 import com.hope.tubitak_bitki.presentation.login.LoginScreen
 import com.hope.tubitak_bitki.presentation.navigation.BottomNavItem
@@ -134,9 +135,8 @@ fun PlantApp() {
             }
 
             composable(Screen.History.route) {
-                Text("Burası Geçmiş", color = Color.White)
+                HistoryScreen()
             }
-
             composable(Screen.Profile.route) {
                 Text("Burası Profil", color = Color.White)
             }
