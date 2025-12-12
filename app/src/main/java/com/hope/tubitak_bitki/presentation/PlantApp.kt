@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.hope.tubitak_bitki.presentation.camera.CameraScreen
 import com.hope.tubitak_bitki.presentation.home.HomeScreen
 import com.hope.tubitak_bitki.presentation.login.LoginScreen
 import com.hope.tubitak_bitki.presentation.navigation.BottomNavItem
@@ -120,7 +121,16 @@ fun PlantApp() {
             }
 
             composable(Screen.Camera.route) {
-                Text("Burası Kamera Sayfası", color = Color.White)
+                CameraScreen(
+                    onCloseClick = {
+                        navController.popBackStack()
+                    },
+                    onAnalyzeClick = { data ->
+
+                        println("Analiz edilecek veri: $data")
+                        navController.popBackStack()
+                    }
+                )
             }
 
             composable(Screen.History.route) {
