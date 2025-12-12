@@ -16,8 +16,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.hope.tubitak_bitki.presentation.login.LoginScreen
 import com.hope.tubitak_bitki.presentation.navigation.BottomNavItem
 import com.hope.tubitak_bitki.presentation.navigation.Screen
+import com.hope.tubitak_bitki.presentation.register.RegisterScreen
 
 @Composable
 fun PlantApp() {
@@ -69,13 +71,30 @@ fun PlantApp() {
             startDestination = Screen.Login.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-
             composable(Screen.Login.route) {
-                Text("Burası Login sayfası")
+                LoginScreen(
+                    onLoginSuccess = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Login.route) { inclusive = true }
+                        }
+                    },
+                    onRegisterClick = {
+                        navController.navigate(Screen.Register.route)
+                    }
+                )
             }
 
             composable(Screen.Register.route) {
-                Text("Burası Kayıt Sayfası")
+                RegisterScreen(
+                    onRegisterSuccess = {
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Login.route) { inclusive = true }
+                        }
+                    },
+                    onBackToLogin = {
+                        navController.popBackStack()
+                    }
+                )
             }
 
             composable(Screen.Home.route) {
@@ -83,7 +102,7 @@ fun PlantApp() {
             }
 
             composable(Screen.Camera.route) {
-                Text("Burası Camera")
+                Text("Burası Camera Sayfası")
             }
 
             composable(Screen.History.route) {

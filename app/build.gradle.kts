@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.navigation.compose)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
@@ -58,6 +59,7 @@ dependencies {
     ksp(libs.room.compiler)
 
     implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
 
     implementation(libs.camera.core)
