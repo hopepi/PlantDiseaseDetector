@@ -23,6 +23,7 @@ import com.hope.tubitak_bitki.presentation.home.HomeScreen
 import com.hope.tubitak_bitki.presentation.login.LoginScreen
 import com.hope.tubitak_bitki.presentation.navigation.BottomNavItem
 import com.hope.tubitak_bitki.presentation.navigation.Screen
+import com.hope.tubitak_bitki.presentation.profile.ProfileScreen
 import com.hope.tubitak_bitki.presentation.register.RegisterScreen
 import com.hope.tubitak_bitki.presentation.ui.theme.*
 
@@ -138,7 +139,14 @@ fun PlantApp() {
                 HistoryScreen()
             }
             composable(Screen.Profile.route) {
-                Text("Burası Profil", color = Color.White)
+                ProfileScreen(
+                    onLogout = {
+
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(0) { inclusive = true }
+                        }
+                    }
+                )
             }
         }
     }
