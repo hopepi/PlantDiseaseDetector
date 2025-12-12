@@ -10,16 +10,19 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.hope.tubitak_bitki.presentation.home.HomeScreen
 import com.hope.tubitak_bitki.presentation.login.LoginScreen
 import com.hope.tubitak_bitki.presentation.navigation.BottomNavItem
 import com.hope.tubitak_bitki.presentation.navigation.Screen
 import com.hope.tubitak_bitki.presentation.register.RegisterScreen
+import com.hope.tubitak_bitki.presentation.ui.theme.*
 
 @Composable
 fun PlantApp() {
@@ -41,9 +44,13 @@ fun PlantApp() {
     }
 
     Scaffold(
+        containerColor = DarkForest,
         bottomBar = {
             if (isBottomBarVisible) {
-                NavigationBar {
+                NavigationBar(
+                    containerColor = Color.Black.copy(alpha = 0.8f),
+                    contentColor = NeonGreen
+                ) {
                     bottomNavItems.forEach { item ->
                         val selected = currentDestination?.hierarchy?.any { it.route == item.route } == true
 
@@ -59,7 +66,14 @@ fun PlantApp() {
                                 }
                             },
                             icon = { Icon(item.icon, contentDescription = item.title) },
-                            label = { Text(item.title) }
+                            label = { Text(item.title) },
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = NeonGreen,
+                                selectedTextColor = NeonGreen,
+                                indicatorColor = NeonGreen.copy(alpha = 0.2f),
+                                unselectedIconColor = Color.White.copy(alpha = 0.5f),
+                                unselectedTextColor = Color.White.copy(alpha = 0.5f)
+                            )
                         )
                     }
                 }
@@ -98,19 +112,23 @@ fun PlantApp() {
             }
 
             composable(Screen.Home.route) {
-                Text("Burası Ana Sayfa")
+                HomeScreen(
+                    onCameraClick = {
+                        navController.navigate(Screen.Camera.route)
+                    }
+                )
             }
 
             composable(Screen.Camera.route) {
-                Text("Burası Camera Sayfası")
+                Text("Burası Kamera Sayfası", color = Color.White)
             }
 
             composable(Screen.History.route) {
-                Text("Burası Geçmiş")
+                Text("Burası Geçmiş", color = Color.White)
             }
 
             composable(Screen.Profile.route) {
-                Text("Burası Profil")
+                Text("Burası Profil", color = Color.White)
             }
         }
     }
