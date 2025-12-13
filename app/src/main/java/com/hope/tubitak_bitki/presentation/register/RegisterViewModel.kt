@@ -30,8 +30,18 @@ class RegisterViewModel @Inject constructor() : ViewModel() {
     private fun performRegister() {
         val currentState = _state.value
 
-        if (currentState.name.isBlank() || currentState.surname.isBlank() || currentState.email.isBlank()) {
-            _state.update { it.copy(error = "Lütfen tüm alanları doldurun.") }
+        if (currentState.name.isBlank()) {
+            _state.update { it.copy(error = "Ad alanı boş bırakılamaz.") }
+            return
+        }
+
+        if (currentState.surname.isBlank()) {
+            _state.update { it.copy(error = "Soyad alanı boş bırakılamaz.") }
+            return
+        }
+
+        if (currentState.email.isBlank()) {
+            _state.update { it.copy(error = "Email alanı boş bırakılamaz.") }
             return
         }
 

@@ -77,7 +77,17 @@ fun RegisterScreen(
                         value = state.name,
                         onValueChange = { viewModel.onEvent(RegisterEvent.OnNameChange(it)) },
                         hint = "Ad",
-                        icon = Icons.Default.Person
+                        icon = Icons.Default.Person,
+                        imeAction = ImeAction.Next
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    GlassTextField(
+                        value = state.surname,
+                        onValueChange = { viewModel.onEvent(RegisterEvent.OnSurnameChange(it)) },
+                        hint = "Soyad",
+                        icon = Icons.Default.Person,
+                        imeAction = ImeAction.Next
                     )
                     Spacer(modifier = Modifier.height(12.dp))
 
@@ -85,7 +95,8 @@ fun RegisterScreen(
                         value = state.email,
                         onValueChange = { viewModel.onEvent(RegisterEvent.OnEmailChange(it)) },
                         hint = "Email",
-                        icon = Icons.Default.Email
+                        icon = Icons.Default.Email,
+                        imeAction = ImeAction.Next
                     )
                     Spacer(modifier = Modifier.height(12.dp))
 
@@ -94,7 +105,8 @@ fun RegisterScreen(
                         onValueChange = { viewModel.onEvent(RegisterEvent.OnPasswordChange(it)) },
                         hint = "Şifre",
                         icon = Icons.Default.Lock,
-                        isPassword = true
+                        isPassword = true,
+                        imeAction = ImeAction.Next
                     )
                     Spacer(modifier = Modifier.height(12.dp))
 
@@ -103,7 +115,8 @@ fun RegisterScreen(
                         onValueChange = { viewModel.onEvent(RegisterEvent.OnConfirmPasswordChange(it)) },
                         hint = "Şifre Tekrar",
                         icon = Icons.Default.Lock,
-                        isPassword = true
+                        isPassword = true,
+                        imeAction = ImeAction.Done
                     )
 
                     if (state.error != null) {
@@ -139,7 +152,8 @@ private fun GlassTextField(
     onValueChange: (String) -> Unit,
     hint: String,
     icon: ImageVector,
-    isPassword: Boolean = false
+    isPassword: Boolean = false,
+    imeAction: ImeAction = ImeAction.Next
 ) {
     var isVisible by remember { mutableStateOf(false) }
     OutlinedTextField(
@@ -163,6 +177,6 @@ private fun GlassTextField(
         ),
         singleLine = true,
         visualTransformation = if (isPassword && !isVisible) PasswordVisualTransformation() else VisualTransformation.None,
-        keyboardOptions = KeyboardOptions(keyboardType = if (isPassword) KeyboardType.Password else KeyboardType.Text, imeAction = ImeAction.Next)
+        keyboardOptions = KeyboardOptions(keyboardType = if (isPassword) KeyboardType.Password else KeyboardType.Text, imeAction = imeAction)
     )
 }
